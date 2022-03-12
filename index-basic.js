@@ -272,7 +272,7 @@ function eat(snake) {
       snake.score++;
       snake.body.push({ x: snake.position.x, y: snake.position.y });
   
-      if (snake.score === 25) {
+      if (snake1.score === 25) {
         isWin = 1;
         stop(snake);
         return;
@@ -382,8 +382,14 @@ function moveUp(snake) {
     eat(snake, apple1);
     eat(snake, apple2);
 }
-
+function stop(snake) {
+    snake.direction = DIRECTION.STOP;
+  }
 function move(snake) {
+    if (isWin == 1) {
+        alert("You still Win the Game");
+        return;
+      }  
     switch (snake.direction) {
         case DIRECTION.LEFT:
             moveLeft(snake);
@@ -400,7 +406,7 @@ function move(snake) {
     }
     setTimeout(function() {
         move(snake);
-    }, MOVE_INTERVAL);
+    }, M=snake.move);
 }
 
 document.addEventListener("keydown", function (event) {
