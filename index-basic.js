@@ -19,11 +19,17 @@ function initPosition() {
         y: Math.floor(Math.random() * HEIGHT),
     }
 }
-
+function initHeadAndBody() {
+    let head = initPosition();
+    let body = [{x: head.x, y: head.y}];
+    return {
+        head: head,
+        body: body,
+    }
+}
 function initDirection() {
     return Math.floor(Math.random() * 4);
 }
-
 let snake1 = {
     color: "purple",
     position: initPosition(),
@@ -92,10 +98,18 @@ function draw() {
 
         ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
         
-        drawCell(ctx, snake1.position.x, snake1.position.y, snake1.color);
-        drawCell(ctx, snake2.position.x, snake2.position.y, snake2.color);
-        drawCell(ctx, snake3.position.x, snake3.position.y, snake3.color);
-
+        drawCell(ctx, snake1.position.x, snake1.color);
+        for (let i = 1; i < snake1.position.length; i++) {
+            drawCell(ctx, snake1.position[i].x, snake1.position[i].y, snake1.color);
+        }
+        drawCell(ctx, snake2.position.x, snake2.color);
+        for (let i = 1; i < snake2.position.length; i++) {
+            drawCell(ctx, snake2.position[i].x, snake2.position[i].y, snake2.color);
+        }
+        drawCell(ctx, snake3.position.x, snake3.color);
+        for (let i = 1; i < snake3.position.length; i++) {
+            drawCell(ctx, snake3.position[i].x, snake3.position[i].y, snake3.color);
+        }
         drawApple(ctx, apple1.position.x, apple1.position.y, apple1.color);
         drawApple(ctx, apple2.position.x, apple2.position.y, apple2.color);
 

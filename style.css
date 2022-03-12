@@ -1,0 +1,9 @@
+#ular {
+  height: 155px;
+  width: 155px;
+  position: relative;
+  top: 300;
+  background-image: url("/assets/ular.gif");
+  background-size: cover;
+  color: yellowgreen;
+}
