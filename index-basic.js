@@ -114,7 +114,7 @@ function eat(snake, apple) {
         
         if (snake.score % 5 == 0) { 
             MOVE_INTERVAL -= 30;
-            console.log("now speed : " + MOVE_INTERVAL);            
+            //console.log("now speed : " + MOVE_INTERVAL);            
         }
     }
 }
