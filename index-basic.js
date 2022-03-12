@@ -11,7 +11,7 @@ const DIRECTION = {
     UP: 2,
     DOWN: 3,
 }
-const MOVE_INTERVAL = 70;
+var MOVE_INTERVAL = 250;
 
 function initPosition() {
     return {
@@ -19,32 +19,13 @@ function initPosition() {
         y: Math.floor(Math.random() * HEIGHT),
     }
 }
-function initHeadAndBody() {
-    let head = initPosition();
-    let body = [{x: head.x, y: head.y}];
-    return {
-        head: head,
-        body: body,
-    }
-}
+
 function initDirection() {
     return Math.floor(Math.random() * 4);
 }
+
 let snake1 = {
     color: "purple",
-    position: initPosition(),
-    direction: initDirection(),
-    score: 0,
-}
-let snake2 = {
-    color: "blue",
-    position: initPosition(),
-    direction: initDirection(),
-    score: 0,
-}
-
-let snake3 = {
-    color: "green",
     position: initPosition(),
     direction: initDirection(),
     score: 0,
@@ -98,25 +79,14 @@ function draw() {
 
         ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
         
-        drawCell(ctx, snake1.position.x, snake1.color);
-        for (let i = 1; i < snake1.position.length; i++) {
-            drawCell(ctx, snake1.position[i].x, snake1.position[i].y, snake1.color);
-        }
-        drawCell(ctx, snake2.position.x, snake2.color);
-        for (let i = 1; i < snake2.position.length; i++) {
-            drawCell(ctx, snake2.position[i].x, snake2.position[i].y, snake2.color);
-        }
-        drawCell(ctx, snake3.position.x, snake3.color);
-        for (let i = 1; i < snake3.position.length; i++) {
-            drawCell(ctx, snake3.position[i].x, snake3.position[i].y, snake3.color);
-        }
+        drawCell(ctx, snake1.position.x, snake1.position.y, snake1.color);
+        
         drawApple(ctx, apple1.position.x, apple1.position.y, apple1.color);
         drawApple(ctx, apple2.position.x, apple2.position.y, apple2.color);
 
 
         drawScore(snake1);
-        drawScore(snake2);
-        drawScore(snake3);
+       
 
     }, REDRAW_INTERVAL);
 }
@@ -141,6 +111,11 @@ function eat(snake, apple) {
     if (snake.position.x == apple.position.x && snake.position.y == apple.position.y) {
         apple.position = initPosition();
         snake.score++;
+        
+        if (snake.score % 5 == 0) { 
+            MOVE_INTERVAL -= 30;
+            //console.log("now speed : " + MOVE_INTERVAL);            
+        }
     }
 }
 
@@ -204,30 +179,6 @@ document.addEventListener("keydown", function (event) {
         snake1.direction = DIRECTION.DOWN;
     }
 
-    if (event.key === "a") {
-        snake2.direction = DIRECTION.LEFT;
-    } else if (event.key === "d") {
-        snake2.direction = DIRECTION.RIGHT;
-    } else if (event.key === "w") {
-        snake2.direction = DIRECTION.UP;
-    } else if (event.key === "s") {
-        snake2.direction = DIRECTION.DOWN;
-    }
-
-
-    if (event.key === "j") {
-        snake3.direction = DIRECTION.LEFT;
-    } else if (event.key === "l") {
-        snake3.direction = DIRECTION.RIGHT;
-    } else if (event.key === "i") {
-        snake3.direction = DIRECTION.UP;
-    } else if (event.key === "k") {
-        snake3.direction = DIRECTION.DOWN;
-    }
-
-    
 })
 
 move(snake1);
-move(snake2);
-move(snake3);
