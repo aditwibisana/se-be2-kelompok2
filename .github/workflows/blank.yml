@@ -35,4 +35,4 @@ jobs:
         if: ${{ github.ref == 'refs/heads/main' }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./site/public
+          publish_dir: se-be2-kelompok2/index-basic.html
