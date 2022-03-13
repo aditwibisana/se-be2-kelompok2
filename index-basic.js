@@ -223,7 +223,7 @@ function drawScore(snake) {
     let scoreCtx = scoreCanvas.getContext("2d");
 
     scoreCtx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
-    scoreCtx.font = "20px Arial";
+    scoreCtx.font = "16px Arial";
     scoreCtx.fillStyle = snake.color
     scoreCtx.fillText(snake.score, 10, scoreCanvas.scrollHeight / 2);
 }
@@ -239,13 +239,23 @@ function drawSpeed(snake) {
     speedCtx.fillStyle = snake.color;
     speedCtx.fillText(MOVE_INTERVAL, 10, speedCanvas.scrollHeight / 2);
 }
+function drawHealth(snake) {
+    let healthCanvas;
+    healthCanvas = document.getElementById("healthBoard");
+    let healthCtx = healthCanvas.getContext("2d");
+
+    healthCtx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+    healthCtx.font = "16px Arial";
+    healthCtx.fillStyle = snake.color;
+    healthCtx.fillText(snake.health, 10, healthCanvas.scrollHeight / 2);
+}
 
 function drawLevel() {
     let levelCanvas;
     levelCanvas = document.getElementById("levelBoard");
     let levelCtx = levelCanvas.getContext("2d");
     levelCtx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
-    levelCtx.font = "20px Poppins";
+    levelCtx.font = "16px Poppins";
     levelCtx.fillStyle = "#20B2AA";
     levelCtx.fillText(level, 10, levelCanvas.scrollHeight / 2);
   }
@@ -267,6 +277,7 @@ function draw() {
         }
         
         drawScore(snake1);
+        drawHealth(snake1);
 
         drawSpeed(snake1);
 
