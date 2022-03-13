@@ -224,7 +224,7 @@ function drawScore(snake) {
     scoreCtx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
     scoreCtx.font = "20px Arial";
     scoreCtx.fillStyle = snake.color
-    scoreCtx.fillText("Score : " + snake.score, 10, scoreCanvas.scrollHeight / 2);
+    scoreCtx.fillText(snake.score, 10, scoreCanvas.scrollHeight / 2);
 }
 
 
@@ -246,7 +246,7 @@ function drawLevel() {
     levelCtx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
     levelCtx.font = "20px Poppins";
     levelCtx.fillStyle = "#20B2AA";
-    levelCtx.fillText("LEVEL : " + level, 10, levelCanvas.scrollHeight / 2);
+    levelCtx.fillText(level, 10, levelCanvas.scrollHeight / 2);
   }
 
 function draw() {
@@ -304,32 +304,17 @@ function isPrime(num) {
   }
 function eat(snake, apple, life) {
     if (
-      snake.position.x == apple1.position.x &&
-      snake.position.y == apple1.position.y
+      snake.position.x == apple.position.x &&
+      snake.position.y == apple.position.y
     ) {
-      apple1.position = initPosition();
+      apple.position = initPosition();
       snake.score++;
-      snake.body.push({ x: snake.position.x, y: snake.position.y });
-  
-      if (snake1.score === 25) {
-        isWin = 1;
-        stop(snake);
-        return;
-      }
-  
-      if (snake.score % 5 == 0 && snake.score != 0) {
-        snake.move -= 20;
-        nextLevel(snake);
-      }
-    }
-  
-    if (
-      snake.position.x == apple2.position.x &&
-      snake.position.y == apple2.position.y
-    ) {
-      apple2.position = initPosition();
-      snake.score++;
-      snake.body.push({ x: snake.position.x, y: snake.position.y });
+        snake.body.push({ x: snake.position.x, y: snake.position.y });
+        if (snake.score % 5 == 0) { 
+            MOVE_INTERVAL -= 30;
+            level++;
+            //console.log("speed now : " + MOVE_INTERVAL);
+        }
   
       if (snake.score === 25) {
         isWin = 1;
@@ -337,19 +322,39 @@ function eat(snake, apple, life) {
         return;
       }
   
-      if (snake.score % 5 == 0 && snake.score != 0) {
-        snake.move -= 20;
-        nextLevel(snake);
-      }
+    //   if (snake.score % 5 == 0 && snake.score != 0) {
+    //     snake.move -= 20;
+    //     nextLevel(snake);
+    //   }
     }
+  
+    // if (
+    //   snake.position.x == apple2.position.x &&
+    //   snake.position.y == apple2.position.y
+    // ) {
+    //   apple2.position = initPosition();
+    //   snake.score++;
+    //   snake.body.push({ x: snake.position.x, y: snake.position.y });
+  
+    //   if (snake.score === 25) {
+    //     isWin = 1;
+    //     stop(snake);
+    //     return;
+    //   }
+  
+    //   if (snake.score % 5 == 0 && snake.score != 0) {
+    //     snake.move -= 20;
+    //     nextLevel(snake);
+    //   }
+    //}
 
     if (snake.position.x == life.position.x && snake.position.y == life.position.y) {
         life.position = initPosition();
         snake.score++;
         
-        if (snake.score % 5 == 0) { 
-            MOVE_INTERVAL -= 30;           
-        }
+        // if (snake.score % 5 == 0) { 
+        //     MOVE_INTERVAL -= 30;           
+        // }
 
     }
   }
