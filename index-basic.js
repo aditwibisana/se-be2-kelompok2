@@ -1,9 +1,9 @@
 const CELL_SIZE = 20;
-const CANVAS_SIZE = 400;
+const CANVAS_SIZE = 900;
 //made faster
 const REDRAW_INTERVAL = 50;
 const WIDTH = CANVAS_SIZE / CELL_SIZE;
-const HEIGHT = CANVAS_SIZE / CELL_SIZE;
+const HEIGHT= (CANVAS_SIZE-400) / CELL_SIZE;
 //this
 const DIRECTION = {
     LEFT: 0,
@@ -29,6 +29,7 @@ let snake1 = {
     position: initPosition(),
     direction: initDirection(),
     score: 0,
+    speed: 0
 }
 
 let apple1= {
@@ -67,11 +68,21 @@ function drawScore(snake) {
     let scoreCtx = scoreCanvas.getContext("2d");
 
     scoreCtx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
-    scoreCtx.font = "30px Arial";
+    scoreCtx.font = "20px Arial";
     scoreCtx.fillStyle = snake.color
     scoreCtx.fillText(snake.score, 10, scoreCanvas.scrollHeight / 2);
 }
 
+function drawSpeed(snake) {
+    let speedCanvas;
+    speedCanvas = document.getElementById("speedBoard");
+    let speedCtx = speedCanvas.getContext("2d");
+
+    speedCtx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+    speedCtx.font = "16px Arial";
+    speedCtx.fillStyle = snake.color;
+    speedCtx.fillText(MOVE_INTERVAL, 10, speedCanvas.scrollHeight / 2);
+}
 function draw() {
     setInterval(function() {
         let snakeCanvas = document.getElementById("snakeBoard");
@@ -86,6 +97,7 @@ function draw() {
 
 
         drawScore(snake1);
+        drawSpeed(snake1);
        
 
     }, REDRAW_INTERVAL);
@@ -99,7 +111,7 @@ function teleport(snake) {
         snake.position.x = 0;
     }
     if (snake.position.y < 0) {
-        snake.position.y = CANVAS_SIZE / CELL_SIZE - 1;
+        snake.position.y = (CANVAS_SIZE-400) / CELL_SIZE - 1;
     }
     if (snake.position.y >= HEIGHT){
         snake.position.y = 0
