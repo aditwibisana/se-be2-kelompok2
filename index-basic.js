@@ -60,6 +60,7 @@ var isPlay = 0;
 function getStarted() {
     snake1.score = 0;
     level = 1;
+    health = 3;
     wallX = [];
     wallY = [];
   }
@@ -268,7 +269,7 @@ function draw() {
         drawScore(snake1);
 
         drawSpeed(snake1);
-       
+
 
         drawLevel();
         if (upLevel == 1) {
