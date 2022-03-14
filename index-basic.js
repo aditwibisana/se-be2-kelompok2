@@ -57,6 +57,35 @@ var upLevel = 0;
 var isWin = 0;
 var isPlay = 0;
 
+let snake1 = {
+  color: "purple",
+  position: initPosition(),
+  direction: initDirection(),
+  score: 0,
+  speed: 0,
+  move: 250,
+  health: 3,
+  body: [{ x: 0, y: 0 }],
+
+}
+
+let apple1= {
+  color: "red",
+  position: initPosition(),
+  
+}
+
+let apple2= {
+  color: "red",
+  position: initPosition(),
+  
+}
+
+let life= {
+  color: "red",
+  position: initPosition(),
+  
+}
 function getStarted() {
     snake1.score = 0;
     level = 1;
@@ -164,36 +193,6 @@ function initDirection() {
     return Math.floor(Math.random() * 4);
 }
 
-let snake1 = {
-    color: "purple",
-    position: initPosition(),
-    direction: initDirection(),
-    score: 0,
-    speed: 0,
-    move: 250,
-    health: 3,
-    body: [{ x: 0, y: 0 }],
-
-}
-
-let apple1= {
-    color: "red",
-    position: initPosition(),
-    
-}
-
-let apple2= {
-    color: "red",
-    position: initPosition(),
-    
-}
-
-let life= {
-    color: "red",
-    position: initPosition(),
-    
-}
-
 function drawApple(ctx, x, y) {
     let img = document.getElementById('apple');
     ctx.drawImage(img, x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE);
@@ -266,6 +265,25 @@ function draw() {
         let ctx = snakeCanvas.getContext("2d");
 
         ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+
+        let snake = document.getElementById("ular");
+        ctx.drawImage(
+          snake,
+          snake1.position.x * CELL_SIZE,
+          snake1.position.y * CELL_SIZE,
+          CELL_SIZE,
+          CELL_SIZE
+        );
+        for (let i = 1; i < snake1.score; i++) {
+          ctx.drawImage(
+            snake,
+            snake1.body[i].x * CELL_SIZE,
+            snake1.body[i].y * CELL_SIZE,
+            CELL_SIZE,
+            CELL_SIZE
+          );
+        }
+       // ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
         
         drawCell(ctx, snake1.position.x, snake1.position.y, snake1.color);
         
@@ -274,14 +292,12 @@ function draw() {
 
         if(PRIMA.includes(snake1.score)){
             drawLife(ctx, life.position.x, life.position.y, life.color);
-        }
+        };
         
         drawScore(snake1);
         drawHealth(snake1);
-
+        createWall();
         drawSpeed(snake1);
-
-
         drawLevel();
         if (upLevel == 1) {
           upLevel = 0;
