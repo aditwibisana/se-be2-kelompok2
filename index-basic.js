@@ -313,7 +313,8 @@ function isPrime(num) {
     for (let i = 2, s = Math.sqrt(num); i <= s; i++)
       if (num % i === 0) return false;
     return num > 1;
-  }
+}
+
 function eat(snake, apple, life) {
     if (
       snake.position.x == apple.position.x &&
@@ -325,6 +326,7 @@ function eat(snake, apple, life) {
         if (snake.score % 5 == 0) { 
             MOVE_INTERVAL -= 30;
             level++;
+            playAudio("Level Up");
             //console.log("speed now : " + MOVE_INTERVAL);
         }
   
@@ -363,11 +365,24 @@ function eat(snake, apple, life) {
     if (snake.position.x == life.position.x && snake.position.y == life.position.y) {
         life.position = initPosition();
         snake.score++;
-        
-        // if (snake.score % 5 == 0) { 
-        //     MOVE_INTERVAL -= 30;           
-        // }
+        if(snake.health < 3){
+          snake.health++;
+        }
+        playAudio("Health");
+    }
+  }
 
+  function playAudio(type){
+    if(type === "Level Up"){
+      var audio1 = new Audio('assets/level_up_voice.mp3');
+      var audio2 = new Audio('assets/level_up.wav');
+      audio1.play();
+      audio2.play();
+    }
+    
+    if(type === "Health"){
+      var audio = new Audio('assets/get_life_item.mp3');
+      audio.play();
     }
   }
   
@@ -387,38 +402,7 @@ function eat(snake, apple, life) {
     stop(snake1);
     upLevel = 1;
   }
-//function eat(snake, apple) {
-//    if (snake.position.x == apple.position.x && snake.position.y == apple.position.y) {
-//        apple.position = initPosition();
-//        snake.score++;
-//        
-//        if (snake.score % 5 == 0) { 
-//            MOVE_INTERVAL -= 30;
-//            //console.log("now speed : " + MOVE_INTERVAL);            
-//        }
-//
-//    }
-//    if (snake.score % 5 == 0 && snake.score != 0) {
-//        snake.move -= 20;
-//        nextLevel(snake);
-//      }
-//}
-function nextLevel(snake) {
-    level++;
-    if (level == 2) {
-      initWall2();
-    } else if (level == 3) {
-      initWall3();
-    } else if (level == 4) {
-      initWall4();
-    } else if (level == 5) {
-      initWall5();
-    }
-    snake1.position = initPosition();
-    snake1.health += 3;
-    stop(snake1);
-    upLevel = 1;
-  }
+
 function moveLeft(snake) {
     snake.position.x--;
     teleport(snake);
@@ -449,7 +433,30 @@ function moveUp(snake) {
 }
 function stop(snake) {
     snake.direction = DIRECTION.STOP;
+}
+
+function checkCollision(snakes) {
+  let isCollide = false;
+  //this
+  for (let i = 0; i < snakes.length; i++) {
+      for (let j = 0; j < snakes.length; j++) {
+          for (let k = 1; k < snakes[j].body.length; k++) {
+              if (snakes[i].head.x == snakes[j].body[k].x && snakes[i].head.y == snakes[j].body[k].y) {
+                  isCollide = true;
+              }
+          }
+      }
   }
+  if (isCollide) {
+      var audio = new Audio('assets/game_over.wav');
+      audio.play();
+
+      alert("Game over");
+      getStarted();
+  }
+  return isCollide;
+}
+
 function move(snake) {
     if (isWin == 1) {
         alert("You still Win the Game");
@@ -470,7 +477,7 @@ function move(snake) {
             break;
     }
     setTimeout(function() {
-        move(snake);
+      move(snake);
     }, M=snake.move);
 }
 
