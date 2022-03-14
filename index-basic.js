@@ -264,7 +264,7 @@ function draw() {
         let snakeCanvas = document.getElementById("snakeBoard");
         let ctx = snakeCanvas.getContext("2d");
 
-        ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+       ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
 
         let snake = document.getElementById("ular");
         ctx.drawImage(
@@ -277,13 +277,13 @@ function draw() {
         for (let i = 1; i < snake1.score; i++) {
           ctx.drawImage(
             snake,
-            snake1.body[i].x * CELL_SIZE,
-            snake1.body[i].y * CELL_SIZE,
+            snake.body[i].x * CELL_SIZE,
+            snake.body[i].y * CELL_SIZE,
             CELL_SIZE,
             CELL_SIZE
           );
         }
-       // ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+        //ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
         
         drawCell(ctx, snake1.position.x, snake1.position.y, snake1.color);
         
