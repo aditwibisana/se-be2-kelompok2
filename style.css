@@ -1,4 +1,4 @@
-*{
+* {
   margin: 0;
   padding: 0;
 }
@@ -11,4 +11,31 @@
   background-image: url("/assets/ular.gif");
   background-size: cover;
   color: yellowgreen;
+}
+
+body {
+  background-image: url('assets/grass.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100% 100%;
+}
+
+#top-bar {
+  background-color: rgb(255, 255, 255);
+  border-radius: 55px;
+  border: 10px solid #88e407;
+  width: 40%;
+  /* margin-bottom: 10%; */
+
+  /* margin-left: auto; */
+  /* margin-right: auto; */
+
+  position: absolute;
+  right: 30%;
+  /* width: 1000px; */
+  /* margin-left: 100px; */
+  /* margin-right: auto; */
+  /* padding: 20px;
+  
+  height: 150px; */
 }
