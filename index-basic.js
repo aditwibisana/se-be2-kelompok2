@@ -61,6 +61,7 @@ let snake1 = {
   color: "purple",
   position: initPosition(),
   direction: initDirection(),
+  head: initPosition(),
   score: 0,
   speed: 0,
   move: 250,
@@ -175,6 +176,14 @@ function getStarted() {
       }
     }
   }
+  function initHeadAndBody() {
+    let head = initPosition();
+    let body = [{x: head.x, y: head.y}];
+    return {
+        head: head,
+        body: body,
+    }
+}
 function initPosition() {
     xTemp = Math.floor(Math.random() * WIDTH);
     yTemp = Math.floor(Math.random() * HEIGHT);
@@ -266,23 +275,29 @@ function draw() {
 
        ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
 
-        let snake = document.getElementById("ular");
-        ctx.drawImage(
-          snake,
-          snake1.position.x * CELL_SIZE,
-          snake1.position.y * CELL_SIZE,
-          CELL_SIZE,
-          CELL_SIZE
-        );
-        for (let i = 1; i < snake1.score; i++) {
-          ctx.drawImage(
-            snake,
-            snake.body[i].x * CELL_SIZE,
-            snake.body[i].y * CELL_SIZE,
-            CELL_SIZE,
-            CELL_SIZE
-          );
-        }
+       drawCell(ctx, snake1.head.x, snake1.head.y, snake1.color);
+       for (let i = 1; i < snake1.body.length; i++) {
+           drawCell(ctx, snake1.body[i].x, snake1.body[i].y, snake1.color);
+       }
+
+        //let snake = document.getElementById("ular");
+        //ctx.drawImage(
+        //  snake,
+        //  snake1.position.x * CELL_SIZE,
+        //  snake1.position.y * CELL_SIZE,
+        //  CELL_SIZE,
+        //  CELL_SIZE
+        //);
+        //for (let i = 1; i < snake1.score; i++) {
+        //  ctx.drawImage(
+        //    snake,
+        //    snake.body[i].x * CELL_SIZE,
+        //    snake.body[i].y * CELL_SIZE,
+        //    CELL_SIZE,
+        //    CELL_SIZE
+        //  );
+        //  }
+        //
         //ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
         
         drawCell(ctx, snake1.position.x, snake1.position.y, snake1.color);
@@ -485,9 +500,14 @@ function move(snake) {
             moveUp(snake);
             break;
     }
+    moveBody(snake);
     setTimeout(function() {
         move(snake);
     }, M=snake.move);
+}
+function moveBody(snake) {
+  snake.body.unshift({ x: snake.position.x, y: snake.position.y });
+  snake.body.pop();
 }
 
 document.addEventListener("keydown", function (event) {
