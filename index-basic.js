@@ -335,6 +335,7 @@ function eat(snake, apple, life) {
         stop(snake);
         return;
       }
+      playAudio("Eat");
   
     //   if (snake.score % 5 == 0 && snake.score != 0) {
     //     snake.move -= 20;
@@ -373,6 +374,11 @@ function eat(snake, apple, life) {
   }
 
   function playAudio(type){
+    if(type === "Eat"){
+      var audio = new Audio('assets/eating.mp3');
+      audio.play();
+    }
+
     if(type === "Level Up"){
       var audio1 = new Audio('assets/level_up_voice.mp3');
       var audio2 = new Audio('assets/level_up.wav');
